@@ -25,9 +25,9 @@
  public class Project1 {
       public static void main(String[] args) {
     	  
-    	 int mwilliams;
+    	 int mwilliams = 1;
     	 
-    	 System.out.println("Testing");
+    	 System.out.println("Testing " + mwilliams);
       
       } //main
  
