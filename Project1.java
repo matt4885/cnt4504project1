@@ -22,23 +22,21 @@
  */
 
 import java.io.*;
-import java.util.Scanner; 
- 
- public class Project1 {
-      public static void main(String[] args) {
+import java.util.Scanner;
 
+public class Project1 {
+	public static void main(String[] args) {
 
-	/* System objects */
-	Scanner scan = new Scanner(System.in);
+		/* System objects */
+		Scanner scan = new Scanner(System.in);
 
+		/* Local variables */
+		int choice; // Used in switch statement for menu choice
 
-	/* Local variables */ 
-	int choice;   //Used in switch statement for menu choice
+		while (true) {
 
-	while (true) {
-
-		switch (choice) {
-			case 1: 
+			switch (choice) {
+			case 1:
 
 				break;
 			case 2:
@@ -62,14 +60,12 @@ import java.util.Scanner;
 				break;
 			default:
 				System.out.println("Invalid menu choice. Please enter 1-7.");
-			
+
 				break;
-		} //end of switch
-	
+			} // end of switch
 
+		} // end of while loop
 
-	} //end of while loop
-      
-      } //main
- 
- } //end class Project1
+	} // main
+
+} // end class Project1
