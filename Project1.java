@@ -9,13 +9,13 @@
  * Client:
  * Server:
  *
- * *******************
- * * Nicholas Hecht  *
- * * Matthew Kempey  *
- * * Casey           *
- * * Braden         *
- * * Michael         *
- * *******************
+ * ********************
+ * * Nicholas Hecht   *
+ * * Matthew Kempey   *
+ * * Casey Dotson     *
+ * * Braden Weaver    *
+ * * Michael Williams * 
+ * ********************
  *
  * Other Notes: 
  *
