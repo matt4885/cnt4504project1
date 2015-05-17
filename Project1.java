@@ -8,13 +8,13 @@
  * Client:
  * Server:
  *
- * *******************
- * * Nicholas Hecht  *
- * * Matthew Kempey  *
- * * Casey           *
- * * Braiden         *
- * * Michael         *
- * *******************
+ * **********************
+ * * Nicholas Hecht     *
+ * * Matthew Kempey     *
+ * * Casey              *
+ * * Braiden            *
+ * * Michael Williams   *
+ * **********************
  *
  * Other Notes: 
  *
