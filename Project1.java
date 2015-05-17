@@ -1,4 +1,5 @@
 /*  
+ * UNIVERSITY OF NORTH FLORIDA COMPUTER SCIENCE
  * CNT 4504 - COMPUTER NETWORKS AND DISTRIBUTED PROCESSING
  * Project 1
  * 
@@ -12,7 +13,7 @@
  * * Nicholas Hecht  *
  * * Matthew Kempey  *
  * * Casey           *
- * * Braiden         *
+ * * Braden         *
  * * Michael         *
  * *******************
  *
