@@ -32,7 +32,7 @@ public class Client {
 		Scanner scan = new Scanner(System.in);
 
 		/* Local variables */
-		int choice; // Used in switch statement for menu choice
+		int choice; // Used in  switch statement for menu choice
 
 		while (true) {
 
