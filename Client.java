@@ -29,7 +29,6 @@ import java.util.Scanner;
 public class Client {
 	private static Scanner scan;
 
-
 	public static void main(String[] args) {
 
 		scan = new Scanner(System.in);
@@ -39,20 +38,27 @@ public class Client {
 		byte[] addr = new byte[4]; // byte array to store the destination array
 		InetAddress serverIP = null;
 		int numberOfClients = Integer.parseInt(args[2]);
-		
+
 		// choice = scan.nextInt();
-		/* 
+		/*
 		 * Grab the server IP
 		 */
-		   
-
+		
 		if (args.length > 1) {
 			try {
 				String tempString[] = args[0].split(".");
 				if (tempString.length == 4) {
-					for (int i = 0; i < tempString.length; i++) { // iterate through the server address array
-						byte b = Byte.parseByte(tempString[i]); // convert the octet to a byte
-						addr[i] = b; // store byte in appropriate addr array element
+					for (int i = 0; i < tempString.length; i++) { // iterate
+																	// through
+																	// the
+																	// server
+																	// address
+																	// array
+						byte b = Byte.parseByte(tempString[i]); // convert the
+																// octet to a
+																// byte
+						addr[i] = b; // store byte in appropriate addr array
+										// element
 					}
 				}
 			} catch (NumberFormatException e) {
@@ -69,11 +75,10 @@ public class Client {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} // inetaddress object for use with Socket connections
-		/* 
-		 *  Grab the number of clients 
+		/*
+		 * Grab the number of clients
 		 */
-		
-		
+
 		if (args.length > 1) {
 			try {
 				numberOfClients = Integer.parseInt(args[1]);
@@ -83,42 +88,39 @@ public class Client {
 				System.exit(1);
 			}
 		}
-
+		
 		int portNumber = Integer.parseInt(args[1]);
 
-		
-		
-		
-		
-
 		do {
-		   choice = userMenu();
-		   if(choice >= 1 && choice <= 6){
-			   sendCmd(choice, portNumber, serverIP);
-		   }
-			
-		}while(choice != 7);
+			choice = userMenu();
+			if (choice >= 1 && choice <= 6) {
+				sendCmd(choice, portNumber, serverIP);
+			}
 
-	
+		} while (choice != 7);
+
 	} // main
-
 
 	private static void sendCmd(int choice, int portNumber, InetAddress serverIP) {
 		// TODO Auto-generated method stub
-		
+		PrintWriter out = null;
+		Socket kkSocket = null;
+		BufferedReader in = null;
+		String fromServer = null;
+
 		try {
-		    Socket kkSocket = new Socket(serverIP, portNumber);
-		    PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
-		    BufferedReader in = new BufferedReader( new InputStreamReader(kkSocket.getInputStream()));
-			} 
-		catch(Exception ex) {}
+			 kkSocket = new Socket(serverIP, portNumber);
+			 out = new PrintWriter(kkSocket.getOutputStream(), true);
+			 in = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));
+		} catch (Exception ex) {
+		}
+		out.println(choice);
+		fromServer = in.read();
 		
 	}
 
-
 	public static int userMenu() {
-		
-		
+
 		System.out.println("Select a function:");
 		System.out.println("1.	Host current Date and Time");
 		System.out.println("2.	Host uptime");
@@ -127,8 +129,7 @@ public class Client {
 		System.out.println("5.	Host current users");
 		System.out.println("6.	Host running processes");
 		System.out.println("7.	Quit");
-		
-		
+
 		return scan.nextInt();
 	}
 
