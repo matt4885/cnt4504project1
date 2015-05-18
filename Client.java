@@ -36,8 +36,7 @@ public class Client {
 
 		// choice = scan.nextInt();
 
-		StringBuilder build = new StringBuilder();
-		String serverIP;
+		String serverIP;   
 
 		if (args.length > 1) {
 			try {
