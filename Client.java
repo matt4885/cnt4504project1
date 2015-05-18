@@ -94,27 +94,27 @@ public class Client {
 		while (true) {
 
 			switch (choice) {
-			/* date */
+			/* Host current date and time */
 			case 1:
 
 				break;
-			/* netstat */
+			/* Host uptime */
 			case 2:
 			
 				break;
-			/* ps -e / ps -aux */
+			/* Host memory use */
 			case 3:
 
 				break;
-			
+			/* Host Netstat */
 			case 4:
 
 				break;
-			
+			/* Host current users */
 			case 5:
 
 				break;
-			
+			/* Host running processes */
 			case 6:
 
 				break;
