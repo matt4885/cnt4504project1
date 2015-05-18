@@ -23,35 +23,33 @@
  */
 
 import java.io.*;
-import java.net.Socket;
+import java.net.*;
 import java.util.Scanner;
 
 public class Client {
 	public static void main(String[] args) {
 
-		/* System objects */
+		/* System objects *///
 		Scanner scan = new Scanner(System.in);
 
 		/* Local variables */
 		int choice = 0; // Used in switch statement for menu choice
-
+		byte[] addr = new byte[4]; // byte array to store the destination array
+		
 		// choice = scan.nextInt();
-
-		
-		
 		/* 
 		 * Grab the server IP
 		 */
 		
-		String serverIP;   
+		String serverIP = null;   
 
 		if (args.length > 1) {
 			try {
 				String tempString[] = args[0].split(".");
 				if (tempString.length == 4) {
-					for (int i = 0; i < tempString.length; i++) {
-						int splitter = Integer.parseInt(tempString[i]);
-
+					for (int i = 0; i < tempString.length; i++) { // iterate through the server address array
+						byte b = Byte.parseByte(tempString[i]); // convert the octet to a byte
+						addr[i] = b; // store byte in appropriate addr array element
 					}
 				}
 			} catch (NumberFormatException e) {
@@ -62,7 +60,12 @@ public class Client {
 			}
 		}
 
-		
+		try {
+			InetAddress test = InetAddress.getByAddress(addr);
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} // inetaddress object for use with Socket connections
 		/* 
 		 *  Grab the number of clients 
 		 */
@@ -84,29 +87,34 @@ public class Client {
 		    Socket kkSocket = new Socket(serverIP, portNumber);
 		    PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
 		    BufferedReader in = new BufferedReader( new InputStreamReader(kkSocket.getInputStream()));
-		} catch () {
-			
-		}
+			} 
+		catch(Exception ex) {}
 		
 		
 		while (true) {
 
 			switch (choice) {
+			/* date */
 			case 1:
 
 				break;
+			/* netstat */
 			case 2:
-
+			
 				break;
+			/* ps -e / ps -aux */
 			case 3:
 
 				break;
+			
 			case 4:
 
 				break;
+			
 			case 5:
 
 				break;
+			
 			case 6:
 
 				break;
@@ -123,5 +131,4 @@ public class Client {
 		} // end of while loop
 
 	} // main
-
 } // end class Client
