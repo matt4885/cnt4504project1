@@ -25,7 +25,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class Project1 {
+public class Client {
 	public static void main(String[] args) {
 
 		/* System objects */
@@ -69,4 +69,4 @@ public class Project1 {
 
 	} // main
 
-} // end class Project1
+} // end class Client
