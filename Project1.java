@@ -6,8 +6,8 @@
  * Date Started: 05/14/2015
  * 
  * Group Machines Used
- * Client:
- * Server:
+ * Client: 192.168.100.109
+ * Server: 192.168.100.110
  *
  * ********************
  * * Nicholas Hecht   *
