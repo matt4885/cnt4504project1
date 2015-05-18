@@ -43,7 +43,7 @@ public class Client {
 		/*
 		 * Grab the server IP
 		 */
-		
+
 		if (args.length > 1) {
 			try {
 				String tempString[] = args[0].split(".");
@@ -88,7 +88,7 @@ public class Client {
 				System.exit(1);
 			}
 		}
-		
+
 		int portNumber = Integer.parseInt(args[1]);
 
 		do {
@@ -106,17 +106,23 @@ public class Client {
 		PrintWriter out = null;
 		Socket kkSocket = null;
 		BufferedReader in = null;
-		String fromServer = null;
+		int fromServer = 0;
 
 		try {
-			 kkSocket = new Socket(serverIP, portNumber);
-			 out = new PrintWriter(kkSocket.getOutputStream(), true);
-			 in = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));
+			kkSocket = new Socket(serverIP, portNumber);
+			out = new PrintWriter(kkSocket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(
+					kkSocket.getInputStream()));
 		} catch (Exception ex) {
 		}
 		out.println(choice);
-		fromServer = in.read();
-		
+		try {
+			fromServer = in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // catch
+
 	}
 
 	public static int userMenu() {
@@ -131,6 +137,6 @@ public class Client {
 		System.out.println("7.	Quit");
 
 		return scan.nextInt();
-	}
+	} // end userMenu*(
 
 } // end class Client
