@@ -8,7 +8,7 @@
  * Group Machines Used
  * Client: 192.168.100.109
  * Server: 192.168.100.110
- *
+ * Port:   1234
  * ********************
  * * Nicholas Hecht   *
  * * Matthew Kempey   *
