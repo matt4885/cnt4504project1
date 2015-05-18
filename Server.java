@@ -34,6 +34,8 @@ public class Server {
 		/* Local variables */
 		int choice; // Used in switch statement for menu choice
 
+		choice = 0; //will change to receive from client 
+		
 		while (true) {
 
 			switch (choice) {
