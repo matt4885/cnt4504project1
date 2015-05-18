@@ -57,7 +57,7 @@ public class Project1 {
 				break;
 			case 7:
 				System.out.println("Quitting...");
-
+				System.exit(1);
 				break;
 			default:
 				System.out.println("Invalid menu choice. Please enter 1-7.");
