@@ -37,21 +37,27 @@ public class Server {
 		while (true) {
 
 			switch (choice) {
+			/* Host current date and time */
 			case 1:
 
 				break;
+			/* Host uptime */
 			case 2:
-
+			
 				break;
+			/* Host memory use */
 			case 3:
 
 				break;
+			/* Host Netstat */
 			case 4:
 
 				break;
+			/* Host current users */
 			case 5:
 
 				break;
+			/* Host running processes */
 			case 6:
 
 				break;
