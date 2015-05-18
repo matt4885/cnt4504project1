@@ -32,9 +32,40 @@ public class Client {
 		Scanner scan = new Scanner(System.in);
 
 		/* Local variables */
-		int choice = 0; // Used in  switch statement for menu choice
-		
-		//choice = scan.nextInt();
+		int choice = 0; // Used in switch statement for menu choice
+
+		// choice = scan.nextInt();
+
+		StringBuilder build = new StringBuilder();
+		String serverIP;
+
+		if (args.length > 1) {
+			try {
+				String tempString[] = args[0].split(".");
+				if (tempString.length == 4) {
+					for (int i = 0; i < tempString.length; i++) {
+						int splitter = Integer.parseInt(tempString[i]);
+
+					}
+				}
+			} catch (NumberFormatException e) {
+				System.err.println("Argument" + args[0]
+						+ " must be an integer.");
+				System.exit(1);
+
+			}
+		}
+
+		int numberOfClients;
+		if (args.length > 1) {
+			try {
+				numberOfClients = Integer.parseInt(args[1]);
+			} catch (NumberFormatException e) {
+				System.err.println("Argument" + args[1]
+						+ " must be an integer.");
+				System.exit(1);
+			}
+		}
 
 		while (true) {
 
