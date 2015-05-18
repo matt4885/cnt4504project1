@@ -27,21 +27,24 @@ import java.net.*;
 import java.util.Scanner;
 
 public class Client {
+	private static Scanner scan;
+
+
 	public static void main(String[] args) {
 
-		/* System objects *///
-		Scanner scan = new Scanner(System.in);
+		scan = new Scanner(System.in);
 
 		/* Local variables */
 		int choice = 0; // Used in switch statement for menu choice
 		byte[] addr = new byte[4]; // byte array to store the destination array
+		InetAddress serverIP = null;
+		int numberOfClients = Integer.parseInt(args[2]);
 		
 		// choice = scan.nextInt();
 		/* 
 		 * Grab the server IP
 		 */
-		
-		String serverIP = null;   
+		   
 
 		if (args.length > 1) {
 			try {
@@ -61,7 +64,7 @@ public class Client {
 		}
 
 		try {
-			InetAddress test = InetAddress.getByAddress(addr);
+			serverIP = InetAddress.getByAddress(addr);
 		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -70,7 +73,7 @@ public class Client {
 		 *  Grab the number of clients 
 		 */
 		
-		int numberOfClients;
+		
 		if (args.length > 1) {
 			try {
 				numberOfClients = Integer.parseInt(args[1]);
@@ -83,6 +86,26 @@ public class Client {
 
 		int portNumber = Integer.parseInt(args[1]);
 
+		
+		
+		
+		
+
+		do {
+		   choice = userMenu();
+		   if(choice >= 1 && choice <= 6){
+			   sendCmd(choice, portNumber, serverIP);
+		   }
+			
+		}while(choice != 7);
+
+	
+	} // main
+
+
+	private static void sendCmd(int choice, int portNumber, InetAddress serverIP) {
+		// TODO Auto-generated method stub
+		
 		try {
 		    Socket kkSocket = new Socket(serverIP, portNumber);
 		    PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
@@ -90,45 +113,23 @@ public class Client {
 			} 
 		catch(Exception ex) {}
 		
+	}
+
+
+	public static int userMenu() {
 		
-		while (true) {
+		
+		System.out.println("Select a function:");
+		System.out.println("1.	Host current Date and Time");
+		System.out.println("2.	Host uptime");
+		System.out.println("3.	Host memory use");
+		System.out.println("4.	Host Netstat");
+		System.out.println("5.	Host current users");
+		System.out.println("6.	Host running processes");
+		System.out.println("7.	Quit");
+		
+		
+		return scan.nextInt();
+	}
 
-			switch (choice) {
-			/* Host current date and time */
-			case 1:
-
-				break;
-			/* Host uptime */
-			case 2:
-			
-				break;
-			/* Host memory use */
-			case 3:
-
-				break;
-			/* Host Netstat */
-			case 4:
-
-				break;
-			/* Host current users */
-			case 5:
-
-				break;
-			/* Host running processes */
-			case 6:
-
-				break;
-			case 7:
-				System.out.println("Quitting...");
-				System.exit(1);
-				break;
-			default:
-				System.out.println("Invalid menu choice. Please enter 1-7.");
-
-				break;
-			} // end of switch
-
-		} // end of while loop
-
-	} // main
 } // end class Client
