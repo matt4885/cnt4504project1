@@ -23,6 +23,7 @@
  */
 
 import java.io.*;
+import java.net.Socket;
 import java.util.Scanner;
 
 public class Client {
@@ -36,6 +37,12 @@ public class Client {
 
 		// choice = scan.nextInt();
 
+		
+		
+		/* 
+		 * Grab the server IP
+		 */
+		
 		String serverIP;   
 
 		if (args.length > 1) {
@@ -55,6 +62,11 @@ public class Client {
 			}
 		}
 
+		
+		/* 
+		 *  Grab the number of clients 
+		 */
+		
 		int numberOfClients;
 		if (args.length > 1) {
 			try {
@@ -66,6 +78,17 @@ public class Client {
 			}
 		}
 
+		int portNumber = Integer.parseInt(args[1]);
+
+		try {
+		    Socket kkSocket = new Socket(serverIP, portNumber);
+		    PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
+		    BufferedReader in = new BufferedReader( new InputStreamReader(kkSocket.getInputStream()));
+		} catch () {
+			
+		}
+		
+		
 		while (true) {
 
 			switch (choice) {
