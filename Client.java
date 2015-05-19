@@ -116,9 +116,12 @@ public class Client {
 		int portNumber = Integer.parseInt(args[1]);
 		do {
 			choice = userMenu();
-			if (choice >= 1 && choice <= 6) {
+			if (choice >= 1 && choice <= 7) {
 				sendCmd(choice, portNumber, serverIP);
+				if(choice == 7)
+					System.exit(1);
 			}
+				
 		} while (choice != 7);
 	} // main
 
@@ -128,14 +131,25 @@ public class Client {
 		Socket kkSocket = null;
 		BufferedReader in = null;
 		int fromServer = 0;
+		String temp = "";
 		
 		//try {
 			kkSocket = new Socket(serverIP, portNumber);
 			out = new PrintWriter(kkSocket.getOutputStream(), true);
 			out.println(choice);
 			in = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));
-			String temp = in.readLine();
-			System.out.print(temp);
+			do
+			{
+				if(choice != 7)
+					temp = in.readLine();
+				else
+					System.exit(1);
+				
+				if(temp.equals("\000\001\002"))
+					break;
+				else
+					System.out.print(temp + "\n");
+			}while(temp != null);
 			//catch (Exception ex) {
 		
 		
@@ -152,7 +166,7 @@ public class Client {
 	}
 
 	public static int userMenu() {
-		System.out.println("Select a function:");
+		System.out.println("\n\nSelect a function:");
 		System.out.println("1. Host current Date and Time");
 		System.out.println("2. Host uptime");
 		System.out.println("3. Host memory use");
