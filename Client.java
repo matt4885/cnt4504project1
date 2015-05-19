@@ -10,10 +10,10 @@
  * Server: 192.168.100.110
  * Port: 1234
  * ********************
- * * Nicholas Hecht *
- * * Matthew Kempey *
- * * Casey Dotson *
- * * Braden Weaver *
+ * * Nicholas Hecht   *
+ * * Matthew Kempey   *
+ * * Casey Dotson     *
+ * * Braden Weaver    *
  * * Michael Williams *
  * ********************
  *
@@ -24,48 +24,16 @@
  */
 import java.io.*;
 import java.net.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Client {
 	private static Scanner scan;
 
 	public static void main(String[] args) throws IOException {
-		
-		 String s = null;
-		 /*
-	        try {
-	             
-	        	// run the Unix "ps -ef" command
-	            // using the Runtime exec method:
-	            Process p = Runtime.getRuntime().exec("netstat");
-	             
-	            BufferedReader stdInput = new BufferedReader(new
-	                 InputStreamReader(p.getInputStream()));
-	 
-	            BufferedReader stdError = new BufferedReader(new
-	                 InputStreamReader(p.getErrorStream()));
-	 
-	            // read the output from the command
-	            System.out.println("Here is the standard output of the command:\n");
-	            while ((s = stdInput.readLine()) != null) {
-	                System.out.println(s);
-	            }
-	             
-	            // read any errors from the attempted command
-	           // System.out.println("Here is the standard error of the command (if any):\n");
-	            while ((s = stdError.readLine()) != null) {
-	                System.out.println(s);
-	            }
-	             
-	            System.exit(0);
-	        }
-	        catch (IOException e) {
-	            System.out.println("exception happened - here's what I know: ");
-	            e.printStackTrace();
-	            System.exit(-1);
-	        }
-*/
-		
+
+		String s = null;
+
 		System.out.println();
 		scan = new Scanner(System.in);
 		/* Local variables */
@@ -82,11 +50,11 @@ public class Client {
 				String tempString[] = args[0].split(".");
 				if (tempString.length == 4) {
 					for (int i = 0; i < tempString.length; i++) { // iterate
-					// through
-					// the
-					// server
-					// address
-					// array
+						// through
+						// the
+						// server
+						// address
+						// array
 						byte b = Byte.parseByte(tempString[i]); // convert the
 						// octet to a
 						// byte
@@ -100,7 +68,7 @@ public class Client {
 				System.exit(1);
 			}
 		}
-		
+
 		/*
 		 * Grab the number of clients
 		 */
@@ -118,62 +86,75 @@ public class Client {
 			choice = userMenu();
 			if (choice >= 1 && choice <= 7) {
 				sendCmd(choice, portNumber, serverIP);
-				if(choice == 7)
+				if (choice == 7)
 					System.exit(1);
 			}
-				
+
 		} while (choice != 7);
 	} // main
 
-	private static void sendCmd(int choice, int portNumber, String serverIP) throws IOException {
+	private static void sendCmd(int choice, int portNumber, String serverIP)
+			throws IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = null;
 		Socket kkSocket = null;
 		BufferedReader in = null;
 		int fromServer = 0;
 		String temp = "";
-		
-		//try {
-			kkSocket = new Socket(serverIP, portNumber);
-			out = new PrintWriter(kkSocket.getOutputStream(), true);
-			out.println(choice);
-			in = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));
-			do
-			{
-				if(choice != 7)
-					temp = in.readLine();
-				else
-					System.exit(1);
-				
-				if(temp.equals("\000\001\002"))
-					break;
-				else
-					System.out.print(temp + "\n");
-			}while(temp != null);
-			//catch (Exception ex) {
-		
-		
-	
-	/*	try {
-			fromServer = in.read();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} // catch4
-		
-		*/
-		
+
+		// try {
+		kkSocket = new Socket(serverIP, portNumber);
+		out = new PrintWriter(kkSocket.getOutputStream(), true);
+		out.println(choice);
+		in = new BufferedReader(
+				new InputStreamReader(kkSocket.getInputStream()));
+		do {
+			if (choice != 7)
+				temp = in.readLine();
+			else
+				System.exit(1);
+
+			if (temp.equals("\000\001\002"))
+				break;
+			else
+				System.out.print(temp + "\n");
+		} while (temp != null);
+		// catch (Exception ex) {
+
+		/*
+		 * try { fromServer = in.read(); } catch (IOException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); } // catch4
+		 */
+
 	}
 
 	public static int userMenu() {
-		System.out.println("\n\nSelect a function:");
-		System.out.println("1. Host current Date and Time");
-		System.out.println("2. Host uptime");
-		System.out.println("3. Host memory use");
-		System.out.println("4. Host Netstat");
-		System.out.println("5. Host current users");
-		System.out.println("6. Host running processes");
-		System.out.println("7. Quit");
-		return scan.nextInt();
-	} // end userMenu*(
+		int choice = 0;
+		boolean parsable = false;
+		Scanner input = new Scanner(System.in);
+		String temp = "";
+		do {
+			parsable = true;
+			System.out.println("\n\nSelect a function:");
+			System.out.println("1. Host current Date and Time");
+			System.out.println("2. Host uptime");
+			System.out.println("3. Host memory use");
+			System.out.println("4. Host Netstat");
+			System.out.println("5. Host current users");
+			System.out.println("6. Host running processes");
+			System.out.println("7. Quit");
+			try {
+				temp = input.next();
+				choice = Integer.parseInt(temp);		
+
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid input. Please try again (1-7).");
+			} 
+			finally {
+				parsable = false;
+			}
+		} while (parsable);
+		//input.close();
+		return choice;
+	} // end userMenu()
 } // end class Client
