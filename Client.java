@@ -118,15 +118,8 @@ public class Client {
 				break;
 			else
 				System.out.print(temp + "\n");
-		} while (temp != null);
-		// catch (Exception ex) {
-
-		/*
-		 * try { fromServer = in.read(); } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } // catch4
-		 */
-
-	}
+		} while (temp != null);  //do while
+	} //sendCmd()
 
 	public static int userMenu() {
 		int choice = 0;
