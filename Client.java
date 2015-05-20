@@ -22,14 +22,18 @@
  * args[1] = SERVER PORT
  * args[2] = NUMBER OF CLIENTS
  */
+
 import java.io.*;
 import java.net.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Client {
+public class Client implements Runnable{
 	private static Scanner scan;
-
+	private static String serverIP = null;
+	private static int portNumber = 0;
+	private static long total = 0;
+	
 	public static void main(String[] args) throws IOException {
 
 		String s = null;
@@ -39,8 +43,9 @@ public class Client {
 		/* Local variables */
 		int choice = 0; // Used in switch statement for menu choice
 		byte[] addr = new byte[4]; // byte array to store the destination array
-		String serverIP = args[0];
-		int numberOfClients = Integer.parseInt(args[2]);
+		serverIP = args[0];
+		int numberOfClients = 0;
+		double average = 0;
 		// choice = scan.nextInt();
 		/*
 		 * Grab the server IP
@@ -63,8 +68,7 @@ public class Client {
 					}
 				}
 			} catch (NumberFormatException e) {
-				System.err.println("Argument" + args[0]
-						+ " must be an integer.");
+				System.err.println("Argument" + args[0]+ " must be an integer.");
 				System.exit(1);
 			}
 		}
@@ -72,17 +76,17 @@ public class Client {
 		/*
 		 * Grab the number of clients
 		 */
-		if (args.length > 1) {
+		if (args.length > 2) {
 			try {
-				numberOfClients = Integer.parseInt(args[1]);
+				numberOfClients = Integer.parseInt(args[2]);
 			} catch (NumberFormatException e) {
 				System.err.println("Argument" + args[1]
 						+ " must be an integer.");
 				System.exit(1);
 			}
 		}
-		int portNumber = Integer.parseInt(args[1]);
-		do {
+		portNumber = Integer.parseInt(args[1]);
+/*		do {
 			choice = userMenu();
 			if (choice >= 1 && choice <= 7) {
 				sendCmd(choice, portNumber, serverIP);
@@ -91,6 +95,25 @@ public class Client {
 			}
 
 		} while (choice != 7);
+		*/
+		Thread tclients[] = new Thread[numberOfClients];
+		for(int i = 0; i < numberOfClients; i++){
+			tclients[i] = new Thread(new Client());
+		}
+		
+		for(int j = 0; j< numberOfClients; j++){
+			tclients[j].start();
+		}
+		//(new Thread(new Client()).start();
+		
+		try {
+		    Thread.sleep(100);
+		} catch (InterruptedException e) {}   // pause for threads to send so the MRT print is after
+		
+		average = total/(double)numberOfClients; // calculate the mean response time
+		
+		System.out.println("\nThe mean response time: " + average); // print MRT
+		
 	} // main
 
 	private static void sendCmd(int choice, int portNumber, String serverIP)
@@ -101,10 +124,13 @@ public class Client {
 		BufferedReader in = null;
 		int fromServer = 0;
 		String temp = "";
+		long t1, t2, tsub;
+		int count = 0;
 
 		// try {
 		kkSocket = new Socket(serverIP, portNumber);
 		out = new PrintWriter(kkSocket.getOutputStream(), true);
+		t1 = System.currentTimeMillis();
 		out.println(choice);
 		in = new BufferedReader(
 				new InputStreamReader(kkSocket.getInputStream()));
@@ -119,6 +145,12 @@ public class Client {
 			else
 				System.out.print(temp + "\n");
 		} while (temp != null);  //do while
+		out.close();
+		kkSocket.close();
+		t2= System.currentTimeMillis();
+		tsub = t2 - t1;
+		System.out.println(tsub);
+		total = tsub + total;
 	} //sendCmd()
 
 	public static int userMenu() {
@@ -150,4 +182,16 @@ public class Client {
 		//input.close();
 		return choice;
 	} // end userMenu()
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		try {
+			sendCmd(1, portNumber, serverIP);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 } // end class Client
