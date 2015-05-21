@@ -26,7 +26,7 @@ import java.io.*;
 //import java.util.Scanner;
 import java.net.*;
 
-public class server{
+public class ConcurrentServer{
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException {
 		/* System objects */
@@ -60,9 +60,9 @@ public class server{
         
         try (ServerSocket serverSocket = new ServerSocket(portNumber)) { 
             while (listening) {
-	            new MultiServerThread(serverSocket.accept()).start();
-	        }
-	    } catch (IOException e) {
+            	new MultiServerThread(serverSocket.accept()).start();
+            }
+        } catch (IOException e) {
             System.err.println("Could not listen on port " + portNumber);
             System.exit(-1);
         }
@@ -83,20 +83,23 @@ class MultiServerThread extends Thread {
 		String s = null;
 		Process p = null;
 		BufferedReader stdInput;
+		int choice = 0;
+		String temp = null;
 		
 		try{
-		while (true) {			
 			System.out.println("  Client connected: ");
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
 			out.checkError();
 
-			//int choice = in.read();
-			String temp = in.readLine().trim();
-			// System.out.println(temp);
-			int choice = Integer.parseInt(temp);
-			
+			temp = in.readLine(); //.trim();
+
+			try{
+				choice = Integer.parseInt(temp);
+			}catch(NumberFormatException e){
+				
+			}
 
 			switch (choice) {
 			/* Host current date and time */
@@ -164,13 +167,13 @@ class MultiServerThread extends Thread {
 				System.out.println("Quitting...");
 				System.exit(1);
 				break;
+			default :
+				break;
 			} // end of switch
 
-			out.println("\000\001\002"); // session termination sequence
+			out.println("\001\001\002"); // session termination sequence
  
-			
-            
-        }}catch (IOException e) {
+		}catch (IOException e) {
             e.printStackTrace();
         }
 		finally{
