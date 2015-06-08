@@ -30,6 +30,7 @@ public class server{
 		int portNumber = 0;		
 		int serverType = 0;
 		
+		/* Port Number*/
 		try {
 			portNumber = Integer.parseInt(args[0]);
 		} catch (NumberFormatException e) {
@@ -76,7 +77,6 @@ public class server{
 	        }
 		} // end concurrentServer
 		
-		@SuppressWarnings("resource")
 		public static void concurrentServer(int portNumber) throws IOException {
 						
 			boolean listening = true;
@@ -186,11 +186,7 @@ class MultiServerThread extends Thread {
 				while ((s = stdInput.readLine()) != null) {
 					out.println(s);
 				}
-				break;
-			case 7:
-				System.out.println("Quitting...");
-				System.exit(1);
-				break;
+				break;			
 			default :
 				break;
 			} // end of switch
